@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { Column, DataType, Model, Table } from "sequelize-typescript";
 
 //указываются необходимые поля для СОЗДАНИЯ нового User
@@ -9,18 +10,24 @@ interface UserCreationAttrs {
 //декоратор для создания таблицы в базе данных с названием users
 @Table({tableName: 'users'})
 export class User extends Model<User, UserCreationAttrs> {
+    //декоратор для swagger
+    @ApiProperty({ example: 1, description: 'Unique id of user'})
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
     id: number;
 
+    @ApiProperty({ example: 'user@email.com', description: 'Email address of user'})
     @Column({type: DataType.STRING, unique: true, allowNull: false})
     email: string;
 
+    @ApiProperty({ example: '123', description: 'Password of user'})
     @Column({type: DataType.STRING, allowNull: false})
     password: string;
 
+    @ApiProperty({ example: true, description: 'Is user banned'})
     @Column({type: DataType.BOOLEAN, defaultValue: false})
     banned: boolean;
 
+    @ApiProperty({ example: 'for abusing', description: "Reason of user's banned"})
     @Column({type: DataType.STRING, allowNull: true})
     banreason: string;
 }
