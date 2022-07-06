@@ -5,7 +5,7 @@ import { User } from "./users.model";
 
 @Injectable()
 export class UsersService {
-
+    //внедрение модели
     constructor(@InjectModel(User) private userModel: typeof User) {}
 
     async createUser(dto: CreateUserDto) {

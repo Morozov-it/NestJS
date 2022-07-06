@@ -15,10 +15,11 @@ import { UsersModule } from "./users/users.module";
 
     //импорты готовых модулей и бд
     imports: [
+        //подключение к файлам .env при запуске
         ConfigModule.forRoot({
             envFilePath: `.${process.env.NODE_ENV}.env`
         }),
-        //подключение бд
+        //подключение k бд
         SequelizeModule.forRoot({
             dialect: 'postgres',
             host: process.env.POSTGRES_HOST,
@@ -33,6 +34,4 @@ import { UsersModule } from "./users/users.module";
         UsersModule,
     ]
 })
-export class AppModule {
-
-}
+export class AppModule {}

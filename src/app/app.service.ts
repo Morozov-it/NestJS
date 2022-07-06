@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 
+//этот сервис внедряется в контроллер
 @Injectable()
 export class AppService {
 

@@ -6,7 +6,7 @@ interface UserCreationAttrs {
     password: string;
 }
 
-//декоратор для создания таблицы в базе данных
+//декоратор для создания таблицы в базе данных с названием users
 @Table({tableName: 'users'})
 export class User extends Model<User, UserCreationAttrs> {
     @Column({type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true})
@@ -21,6 +21,6 @@ export class User extends Model<User, UserCreationAttrs> {
     @Column({type: DataType.BOOLEAN, defaultValue: false})
     banned: boolean;
 
-    @Column({type: DataType.STRING, allowNull: false})
+    @Column({type: DataType.STRING, allowNull: true})
     banreason: string;
 }
