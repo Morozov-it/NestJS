@@ -8,6 +8,7 @@ import { UsersModule } from "./users/users.module";
 import { RolesModule } from './roles/roles.module';
 import { Role } from "./roles/roles.model";
 import { UserRoles } from "./roles/user-roles.model";
+import { AuthModule } from './auth/auth.module';
 
 
 //декоратор - добавляет классу или функции новый функционал
@@ -38,6 +39,7 @@ import { UserRoles } from "./roles/user-roles.model";
         //подключение модулей
         UsersModule,
         RolesModule,
+        AuthModule,
     ]
 })
 export class AppModule {}

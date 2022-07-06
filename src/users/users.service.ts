@@ -20,8 +20,9 @@ export class UsersService {
             if (role instanceof Role) {
                 await user.$set('roles', [role.id])
             }
-            
-            return user
+
+            const userWithRole = await this.userModel.findOne({ where: { email: dto.email }, include: Role })
+            return userWithRole
         } catch (e) {
             return new Error(e.message)
         }
@@ -35,5 +36,10 @@ export class UsersService {
         } catch (e) {
             return new Error(e.message)
         }
+    }
+
+    async getUserByEmail(email: string) {
+        const user = await this.userModel.findOne({ where: { email }, include: { all: true } })
+        return user
     }
 }
