@@ -1,8 +1,13 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { SequelizeModule } from "@nestjs/sequelize";
+//Users
 import { User } from "./users/users.model";
 import { UsersModule } from "./users/users.module";
+//Roles
+import { RolesModule } from './roles/roles.module';
+import { Role } from "./roles/roles.model";
+import { UserRoles } from "./roles/user-roles.model";
 
 
 //декоратор - добавляет классу или функции новый функционал
@@ -27,11 +32,12 @@ import { UsersModule } from "./users/users.module";
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [User], //импорт всех моделей для бд
+            models: [User, Role, UserRoles], //импорт ВСЕХ моделей для бд
             autoLoadModels: true
         }),
         //подключение модулей
         UsersModule,
+        RolesModule,
     ]
 })
 export class AppModule {}
