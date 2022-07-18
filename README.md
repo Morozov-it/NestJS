@@ -5,6 +5,7 @@ npm install --save pg pg-hstore
 npm i @nestjs/config
 npm i @nestjs/swagger swagger-ui-express
 npm i @nestjs/jwt bcryptjs
+npm i class-validator class-transformer
 
 # nest generate
 Для запуска nest generate:

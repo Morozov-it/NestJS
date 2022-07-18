@@ -25,19 +25,18 @@ export class UsersService {
     }    
 
     async createUser(dto: CreateUserDto) {
-        try {
-            const user = await this.userModel.create(dto)
-            const role = await this.rolesService.getRoleByValue("USER")
+        const user = await this.userModel.create(dto)
+        const role = await this.rolesService.getRoleByValue("USER")
 
-            //метод бд для перезаписи одного поля
-            await user.$set('roles', [role.id])
-
-            const userWithRole = await this.userModel.findOne({ where: { email: dto.email }, include: Role })
-            
-            return userWithRole
-        } catch (e) {
+        if (!user || !role) {
             throw new HttpException('Error creating user', HttpStatus.BAD_REQUEST)
         }
+
+        //метод бд для перезаписи одного поля
+        await user.$set('roles', [role.id])
+
+        const userWithRole = await this.userModel.findOne({ where: { email: dto.email }, include: Role })
+        return userWithRole
     }
 
     async addRole(dto: AddRoleDto) {
@@ -53,12 +52,11 @@ export class UsersService {
         await user.$add('roles', role.id)
 
         const userWithAddRole = await this.userModel.findOne({ where: { id: dto.userId }, include: Role })
-
         return userWithAddRole
     }
 
     async banUser(dto: BanUserDto) {
-        //получение пользователя и нужной роли из бд 
+        //получение пользователя из бд 
         const user = await this.userModel.findByPk(dto.userId) //find by personal key
 
         if (!user) {
@@ -69,7 +67,6 @@ export class UsersService {
         user.banned = true
         user.banreason = dto.banReason
         await user.save()
-
         return user
     }
 }
