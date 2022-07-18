@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { Role } from "src/roles/roles.model";
 import { RolesService } from "src/roles/roles.service";
@@ -17,25 +17,21 @@ export class UsersService {
             const role = await this.rolesService.getRoleByValue("USER")
 
             //метод бд для перезаписи одного поля
-            if (role instanceof Role) {
-                await user.$set('roles', [role.id])
-            }
+            await user.$set('roles', [role.id])
 
             const userWithRole = await this.userModel.findOne({ where: { email: dto.email }, include: Role })
+            console.log(userWithRole)
+            
             return userWithRole
         } catch (e) {
-            return new Error(e.message)
+            throw new HttpException('Error creating user', HttpStatus.BAD_REQUEST)
         }
     }
 
     async getAllUsers() {
-        try {
-            //include all - подтягиваются все модели, с которыми связана модель User
-            const users = await this.userModel.findAll({ include:  Role })
-            return users
-        } catch (e) {
-            return new Error(e.message)
-        }
+        //include all - подтягиваются все модели, с которыми связана модель User
+        const users = await this.userModel.findAll({ include:  Role })
+        return users
     }
 
     async getUserByEmail(email: string) {

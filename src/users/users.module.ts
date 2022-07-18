@@ -1,5 +1,6 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { SequelizeModule } from "@nestjs/sequelize";
+import { AuthModule } from "src/auth/auth.module";
 import { Role } from "src/roles/roles.model";
 import { RolesModule } from "src/roles/roles.module";
 import { UserRoles } from "src/roles/user-roles.model";
@@ -15,11 +16,13 @@ import { UsersService } from "./users.service";
     //импорт модели из бд и нужного модуля
     imports: [
         SequelizeModule.forFeature([User, Role, UserRoles]),
-        RolesModule
+        RolesModule,
+        //для предотвращения кольцевой зависимости
+        forwardRef(() => AuthModule)
     ],
     //при экспорте модуля будет экспортироваться и сервис
     exports: [
-        UsersService
+        UsersService,
     ]
 })
 export class UsersModule {}

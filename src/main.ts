@@ -18,6 +18,9 @@ async function start() {
     const document = SwaggerModule.createDocument(app, config)
     SwaggerModule.setup('/api/docs', app, document)
 
+    //использовать middleware для всех endpoints
+    //app.useGlobalGuards(JwtAuthGuard)
+
     await app.listen(PORT, () => console.log(`server started on port ${PORT}`))
 }
 start()

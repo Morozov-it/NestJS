@@ -19,11 +19,7 @@ export class RolesService {
     }
 
     async getRoleByValue(value: string) {
-        try {
-            const role = await this.roleModel.findOne({ where: { value } })
-            return role
-        } catch (e) {
-            return new Error(e.message)
-        }
+        const role = await this.roleModel.findOne({ where: { value } })
+        return role
     }
 }

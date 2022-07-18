@@ -31,9 +31,7 @@ export class AuthService {
         const user = await this.userService.createUser({...userDto, password: hashPassword})
 
         //на клиент возвращается новый токен
-        if (user instanceof User) {
-            return this.generateToken(user)
-        }
+        return this.generateToken(user)
     }
 
     private async generateToken(user: User) {
