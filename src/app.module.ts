@@ -8,7 +8,11 @@ import { UsersModule } from "./users/users.module";
 import { RolesModule } from './roles/roles.module';
 import { Role } from "./roles/roles.model";
 import { UserRoles } from "./roles/user-roles.model";
+//Auth
 import { AuthModule } from './auth/auth.module';
+//Posts
+import { PostsModule } from './posts/posts.module';
+import { Post } from "./posts/posts.model";
 
 
 //декоратор - добавляет классу или функции новый функционал
@@ -33,13 +37,14 @@ import { AuthModule } from './auth/auth.module';
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [User, Role, UserRoles], //импорт ВСЕХ моделей для бд
+            models: [User, Role, UserRoles, Post], //импорт ВСЕХ моделей для бд
             autoLoadModels: true
         }),
         //подключение модулей
         UsersModule,
         RolesModule,
         AuthModule,
+        PostsModule,
     ]
 })
 export class AppModule {}

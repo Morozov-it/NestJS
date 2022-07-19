@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { AppModule } from "./app.module";
-
+import { ValidationPipe } from "./pipes/validation.pipe";
 
 //точка входа и запуск приложения
 async function start() {
@@ -20,6 +20,9 @@ async function start() {
 
     //использовать middleware для всех endpoints
     //app.useGlobalGuards(JwtAuthGuard)
+
+    //использовать глобально валидатор
+    app.useGlobalPipes(new ValidationPipe())
 
     await app.listen(PORT, () => console.log(`server started on port ${PORT}`))
 }
