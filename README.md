@@ -12,3 +12,9 @@ npm i class-validator class-transformer
     -запустить в cmd (от имени администратора);
     -команда powershell;
     -команда Set-ExecutionPolicy RemoteSigned.
+
+#docker
+Для запуска контейнера:
+    - изменить в файле .development.env POSTGRES_HOST=postgres
+    - docker-compose build
+    - docker-compose up
