@@ -6,6 +6,8 @@ import { User } from "src/users/users.model";
 interface PostCreationAttrs {
     title: string;
     content: string;
+    userId: number;
+    image: string;
 }
 
 //декоратор для создания таблицы в базе данных с названием posts
